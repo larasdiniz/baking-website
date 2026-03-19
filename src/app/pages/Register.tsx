@@ -49,8 +49,12 @@ export function Register() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Account creation:", formData);
-    await login(formData.email, formData.password);
-    navigate("/dashboard");
+    
+    // Aqui você faria a chamada à API para criar a conta
+    // Por enquanto, só simulamos e redirecionamos para o login
+    
+    // Redireciona para a página de login após criar a conta
+    navigate("/login");
   };
 
   const steps = [

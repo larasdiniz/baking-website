@@ -1,3 +1,4 @@
+// src/app/pages/Login.tsx
 import React, { useState } from "react";
 import { motion } from "motion/react";
 import { Link, useNavigate } from "react-router";
@@ -14,7 +15,7 @@ export function Login() {
   const [error, setError] = useState("");
 
   const { login } = useAuth();
-  const { t } = useLanguage(); // Hook de tradução
+  const { t } = useLanguage();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -26,7 +27,7 @@ export function Login() {
       await login(email, password);
       navigate("/dashboard");
     } catch (err) {
-      setError(t('login.invalidCredentials')); // "Email ou senha inválidos" / "Invalid email or password"
+      setError(t('login.invalidCredentials'));
     } finally {
       setIsLoading(false);
     }
@@ -37,7 +38,7 @@ export function Login() {
       {/* Left Side - Formulário */}
       <div className="w-full lg:w-1/2 flex flex-col relative px-8 py-10 md:px-16 lg:px-24">
         <Link to="/" className="inline-flex items-center gap-2 text-zinc-500 hover:text-black font-bold transition-colors w-fit mb-12">
-          <ArrowLeft size={20} /> {t('nav.backToHome')} {/* "← Back to Home" / "← Voltar para Início" */}
+          <ArrowLeft size={20} /> {t('nav.backToHome')}
         </Link>
 
         <div className="flex-1 flex flex-col justify-center max-w-md w-full mx-auto">
@@ -48,8 +49,8 @@ export function Login() {
             <span className="text-2xl font-black tracking-tight">NizBank</span>
           </div>
 
-          <h1 className="text-4xl font-black mb-2">{t('login.welcomeBack')}</h1> {/* "Welcome back" / "Bem-vindo de volta" */}
-          <p className="text-zinc-500 font-medium mb-10">{t('login.enterDetails')}</p> {/* "Enter your details to access your account." / "Insira seus dados para acessar sua conta." */}
+          <h1 className="text-4xl font-black mb-2">{t('login.welcomeBack')}</h1>
+          <p className="text-zinc-500 font-medium mb-10">{t('login.enterDetails')}</p>
 
           {/* Mensagem de erro */}
           {error && (
@@ -61,7 +62,7 @@ export function Login() {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Email Field */}
             <div>
-              <label className="block text-sm font-bold text-zinc-700 mb-2">{t('login.emailAddress')}</label> {/* "Email Address" / "Endereço de Email" */}
+              <label className="block text-sm font-bold text-zinc-700 mb-2">{t('login.emailAddress')}</label>
               <div className="relative">
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" size={20} />
                 <input 
@@ -78,8 +79,8 @@ export function Login() {
             {/* Password Field */}
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className="block text-sm font-bold text-zinc-700">{t('login.password')}</label> {/* "Password" / "Senha" */}
-                <a href="#" className="text-sm font-bold text-orange-500 hover:text-orange-600 transition-colors">{t('login.forgotPassword')}</a> {/* "Forgot password?" / "Esqueceu a senha?" */}
+                <label className="block text-sm font-bold text-zinc-700">{t('login.password')}</label>
+                <a href="#" className="text-sm font-bold text-orange-500 hover:text-orange-600 transition-colors">{t('login.forgotPassword')}</a>
               </div>
               <div className="relative">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" size={20} />
@@ -110,7 +111,7 @@ export function Login() {
                 onChange={(e) => setRememberMe(e.target.checked)}
                 className="w-5 h-5 rounded border-zinc-300 text-orange-500 focus:ring-orange-500" 
               />
-              <label htmlFor="remember" className="text-sm font-bold text-zinc-600 cursor-pointer">{t('login.rememberMe')}</label> {/* "Remember me for 30 days" / "Lembrar-me por 30 dias" */}
+              <label htmlFor="remember" className="text-sm font-bold text-zinc-600 cursor-pointer">{t('login.rememberMe')}</label>
             </div>
 
             {/* Sign In Button */}
@@ -121,21 +122,21 @@ export function Login() {
               disabled={isLoading}
               className="w-full bg-black text-white font-bold py-4 rounded-2xl shadow-xl shadow-black/10 hover:bg-zinc-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isLoading ? t('login.signingIn') : t('login.signIn')} {/* "Signing in..." / "Entrando..." | "Sign In" / "Entrar" */}
+              {isLoading ? t('login.signingIn') : t('login.signIn')}
             </motion.button>
           </form>
 
           {/* Sign Up Link */}
           <p className="text-center text-zinc-500 font-medium mt-10">
-            {t('login.noAccount')}{' '} {/* "Don't have an account?" / "Não tem uma conta?" */}
-            <Link to="/open-account" className="text-orange-500 font-bold hover:text-orange-600 transition-colors">{t('login.signUp')}</Link> {/* "Sign up for free" / "Cadastre-se grátis" */}
+            {t('login.noAccount')}{' '}
+            <Link to="/open-account" className="text-orange-500 font-bold hover:text-orange-600 transition-colors">{t('login.signUp')}</Link>
           </p>
 
           {/* Description Text - SEM FOOTER */}
           <p className="text-center text-zinc-400 text-sm mt-8 border-t border-zinc-100 pt-8">
-            {t('login.manageFinances')} {/* "Manage your finances seamlessly." / "Gerencie suas finanças sem complicações." */}
+            {t('login.manageFinances')}
             <br />
-            {t('login.accessDashboard')} {/* "Access your dashboard to track spending, manage cards, and send money instantly worldwide." / "Acesse seu painel para acompanhar gastos, gerenciar cartões e enviar dinheiro instantaneamente para todo o mundo." */}
+            {t('login.accessDashboard')}
           </p>
         </div>
       </div>
