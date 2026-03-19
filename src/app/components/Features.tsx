@@ -1,35 +1,38 @@
 import React from "react";
 import { Zap, ShieldCheck, RefreshCcw, Headset } from "lucide-react";
 import { motion } from "motion/react";
-
-const features = [
-  {
-    icon: <Zap size={28} className="text-orange-500" />,
-    title: "Lightning Fast",
-    description: "Send and receive money instantly, anywhere in the world. No more waiting days for clearance.",
-    bg: "bg-orange-100"
-  },
-  {
-    icon: <RefreshCcw size={28} className="text-black" />,
-    title: "Zero Hidden Fees",
-    description: "What you see is what you pay. We don't charge maintenance fees or surprise transaction costs.",
-    bg: "bg-zinc-100"
-  },
-  {
-    icon: <ShieldCheck size={28} className="text-orange-500" />,
-    title: "Ironclad Security",
-    description: "Your funds are protected with 256-bit encryption, biometric login, and virtual card numbers.",
-    bg: "bg-orange-100"
-  },
-  {
-    icon: <Headset size={28} className="text-black" />,
-    title: "24/7 Support",
-    description: "Our dedicated team is always here to help you, anytime, anywhere, in over 15 languages.",
-    bg: "bg-zinc-100"
-  }
-];
+import { useLanguage } from "../contexts/LanguageContext";
 
 export function Features() {
+  const { t } = useLanguage();
+
+  const features = [
+    {
+      icon: <Zap size={28} className="text-orange-500" />,
+      title: t('features.instant.title'),
+      description: t('features.instant.desc'),
+      bg: "bg-orange-100"
+    },
+    {
+      icon: <RefreshCcw size={28} className="text-black" />,
+      title: t('features.fees.title'),
+      description: t('features.fees.desc'),
+      bg: "bg-zinc-100"
+    },
+    {
+      icon: <ShieldCheck size={28} className="text-orange-500" />,
+      title: t('features.security.title'),
+      description: t('features.security.desc'),
+      bg: "bg-orange-100"
+    },
+    {
+      icon: <Headset size={28} className="text-black" />,
+      title: t('features.support.title'),
+      description: t('features.support.desc'),
+      bg: "bg-zinc-100"
+    }
+  ];
+
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -55,8 +58,8 @@ export function Features() {
           transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-black mb-4">Banking designed for your lifestyle</h2>
-          <p className="text-lg text-zinc-600 font-medium">Everything you need to manage your money efficiently, beautifully packaged into one single app.</p>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-black mb-4">{t('features.title')}</h2>
+          <p className="text-lg text-zinc-600 font-medium">{t('features.subtitle')}</p>
         </motion.div>
 
         <motion.div 

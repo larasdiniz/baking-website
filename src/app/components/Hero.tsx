@@ -1,8 +1,13 @@
 import React from "react";
 import { ArrowRight, ShieldCheck, Zap } from "lucide-react";
 import { motion } from "motion/react";
+import { useNavigate } from "react-router-dom";
+import { useLanguage } from "../contexts/LanguageContext";
 
 export function Hero() {
+  const navigate = useNavigate();
+  const { t } = useLanguage();
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -17,6 +22,14 @@ export function Hero() {
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } },
+  };
+
+  const handleOpenAccount = () => {
+    navigate('/register');
+  };
+
+  const handleGetStarted = () => {
+    navigate('/register');
   };
 
   return (
@@ -52,12 +65,12 @@ export function Hero() {
           >
             <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-zinc-200 text-sm font-bold text-zinc-800 mb-6 shadow-md shadow-black/5 hover:scale-105 transition-transform cursor-default">
               <span className="flex h-2.5 w-2.5 rounded-full bg-orange-500 animate-pulse"></span>
-              Smart & Secure Banking
+              {t('hero.badge')}
             </motion.div>
             
             <motion.h1 variants={itemVariants} className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-black mb-6 leading-[1.1]">
-              Banking that works <span className="text-orange-500 relative inline-block">
-                for you
+              {t('hero.title')} <span className="text-orange-500 relative inline-block">
+                {t('hero.titleHighlight')}
                 <motion.svg 
                   initial={{ pathLength: 0 }}
                   animate={{ pathLength: 1 }}
@@ -72,30 +85,33 @@ export function Hero() {
             </motion.h1>
             
             <motion.p variants={itemVariants} className="text-lg md:text-xl text-zinc-600 mb-8 max-w-xl font-medium">
-              Experience seamless control over your finances with zero hidden fees, instant transfers, and intelligent tracking. Your money, elevated.
+              {t('hero.subtitle')}
             </motion.p>
             
             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
               <motion.button 
                 whileHover={{ scale: 1.05, boxShadow: "0px 10px 30px rgba(249,115,22,0.3)" }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-black hover:bg-orange-500 text-white px-8 py-4 rounded-full font-bold transition-all duration-300 flex items-center justify-center gap-2 group"
+                onClick={handleOpenAccount}
+                className="bg-black hover:bg-orange-500 text-white px-8 py-4 rounded-full font-bold transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer"
               >
-                Open an Account
+                {t('hero.openAccount')}
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </motion.button>
+              
               <motion.button 
                 whileHover={{ scale: 1.05, backgroundColor: "#f4f4f5" }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-white text-black border-2 border-zinc-200 px-8 py-4 rounded-full font-bold transition-colors flex items-center justify-center"
+                onClick={handleGetStarted}
+                className="bg-white text-black border-2 border-zinc-200 px-8 py-4 rounded-full font-bold transition-colors flex items-center justify-center cursor-pointer"
               >
-                Get Started
+                {t('hero.getStarted')}
               </motion.button>
             </motion.div>
             
             <motion.div variants={itemVariants} className="mt-10 flex items-center gap-6 text-sm text-zinc-500 font-bold">
-              <div className="flex items-center gap-1.5"><ShieldCheck size={18} className="text-black"/> Bank-level Security</div>
-              <div className="flex items-center gap-1.5"><Zap size={18} className="text-orange-500"/> Fast Setup</div>
+              <div className="flex items-center gap-1.5"><ShieldCheck size={18} className="text-black"/> {t('hero.security')}</div>
+              <div className="flex items-center gap-1.5"><Zap size={18} className="text-orange-500"/> {t('hero.fastSetup')}</div>
             </motion.div>
           </motion.div>
 

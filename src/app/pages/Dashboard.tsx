@@ -137,7 +137,7 @@ export function Dashboard() {
         <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl p-6 text-white relative overflow-hidden max-w-md shadow-xl">
           <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl translate-x-1/2 -translate-y-1/2" />
           <div className="relative z-10">
-            <p className="text-sm opacity-90 mb-6">NovaBank</p>
+            <p className="text-sm opacity-90 mb-6">NizBank</p>
             <p className="text-lg font-mono mb-4">**** **** **** {user?.cardNumber || "4289"}</p>
             <div className="flex justify-between items-center">
               <p className="text-xs opacity-90">{user?.cardExpiry || "12/26"}</p>

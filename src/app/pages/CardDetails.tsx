@@ -1,5 +1,4 @@
-// src/app/pages/CardDetails.tsx
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { motion } from "motion/react";
 import { useNavigate, useParams } from "react-router-dom";
 import { 
@@ -9,17 +8,57 @@ import {
 } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 
-export function CardDetails() {
-  const navigate = useNavigate();
-  const { cardId } = useParams();
-  const { user } = useAuth();
-  const [showDetails, setShowDetails] = useState(false);
+// Definição dos tipos (pode ser movido para um arquivo separado)
+type Transaction = {
+  date: string;
+  description: string;
+  amount: number;
+  category: string;
+};
 
-  // Determinar qual cartão está sendo visualizado baseado no ID
-  // Por enquanto vamos usar dados mockados diferentes para cada tipo
-  const isCreditCard = cardId === "card1"; // Simulando que card1 é crédito
-  
-  const creditCard = {
+type CreditCard = {
+  id: string;
+  type: 'credit';
+  brand: string;
+  lastFour: string;
+  expiry: string;
+  status: string;
+  limit: number;
+  availableCredit: number;
+  usedCredit: number;
+  interest_rate: string;
+  min_payment: number;
+  due_date: string;
+  isVirtual: boolean;
+  isPhysical: boolean;
+  issuedAt: string;
+  rewards: string;
+  transactions: Transaction[];
+};
+
+type DebitCard = {
+  id: string;
+  type: 'debit';
+  brand: string;
+  lastFour: string;
+  expiry: string;
+  status: string;
+  linked_account: string;
+  current_balance: number;
+  daily_withdrawal_limit: number;
+  daily_purchase_limit: number;
+  isVirtual: boolean;
+  isPhysical: boolean;
+  issuedAt: string;
+  features: string[];
+  transactions: Transaction[];
+};
+
+type Card = CreditCard | DebitCard;
+
+// Mock data (em produção viria de uma API)
+const mockCards: Record<string, Card> = {
+  card1: {
     id: "card1",
     type: "credit",
     brand: "visa",
@@ -42,9 +81,8 @@ export function CardDetails() {
       { date: "2024-03-14", description: "Uber", amount: -23.50, category: "Transport" },
       { date: "2024-03-12", description: "Restaurant", amount: -45.80, category: "Food" },
     ]
-  };
-
-  const debitCard = {
+  },
+  card2: {
     id: "card2",
     type: "debit",
     brand: "mastercard",
@@ -65,9 +103,32 @@ export function CardDetails() {
       { date: "2024-03-15", description: "Gas Station", amount: -45.00, category: "Transport" },
       { date: "2024-03-13", description: "Pharmacy", amount: -32.50, category: "Health" },
     ]
-  };
+  }
+};
 
-  const card = isCreditCard ? creditCard : debitCard;
+export function CardDetails() {
+  const navigate = useNavigate();
+  const { cardId } = useParams<{ cardId: string }>();
+  const { user } = useAuth(); // Se não for usar, considere remover
+  const [showDetails, setShowDetails] = useState(false);
+
+  // Buscar cartão baseado no ID
+  const card = useMemo(() => {
+    if (!cardId) return null;
+    return mockCards[cardId];
+  }, [cardId]);
+
+  // Loading state
+  if (!card) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p className="text-muted-foreground">Card not found</p>
+      </div>
+    );
+  }
+
+  const isCreditCard = card.type === 'credit';
+  const isDebitCard = card.type === 'debit';
 
   return (
     <div className="space-y-6">
@@ -75,7 +136,8 @@ export function CardDetails() {
       <div className="flex items-center gap-4">
         <button
           onClick={() => navigate(-1)}
-          className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200"
+          className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors"
+          aria-label="Go back"
         >
           <ArrowLeft size={20} />
         </button>
@@ -84,13 +146,13 @@ export function CardDetails() {
         </h1>
       </div>
 
-      {/* Card Display - Agora com a MESMA proporção dos Cards.tsx */}
+      {/* Card Display */}
       <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl p-5 text-white shadow-xl max-w-sm">
         <div className="relative z-10">
           <div className="flex justify-between items-start mb-6">
             <div>
               <p className="text-xs opacity-80">{card.brand === "visa" ? "VISA" : "MASTERCARD"}</p>
-              <p className="text-lg font-bold mt-1">NovaBank</p>
+              <p className="text-lg font-bold mt-1">NizBank</p>
             </div>
             <div className="flex items-center gap-1">
               <span className="text-[10px] bg-white/20 px-2 py-1 rounded-full">
@@ -106,7 +168,7 @@ export function CardDetails() {
             </p>
             <button
               onClick={() => setShowDetails(!showDetails)}
-              className="flex items-center gap-1 text-[10px] bg-white/20 px-2 py-1 rounded-full"
+              className="flex items-center gap-1 text-[10px] bg-white/20 px-2 py-1 rounded-full hover:bg-white/30 transition-colors"
             >
               {showDetails ? <EyeOff size={12} /> : <Eye size={12} />}
               {showDetails ? "Hide" : "Show"}
@@ -188,12 +250,9 @@ export function CardDetails() {
         </div>
       </div>
 
-      {/* INFORMAÇÕES ESPECÍFICAS POR TIPO DE CARTÃO */}
-
-      {/* Se for CARTÃO DE CRÉDITO */}
-      {card.type === 'credit' && (
+      {/* Credit Card Specific Info */}
+      {isCreditCard && (
         <>
-          {/* Credit Information */}
           <div className="bg-card border border-border rounded-xl p-6">
             <h2 className="text-lg font-black text-foreground mb-4 flex items-center gap-2">
               <DollarSign size={20} className="text-orange-500" />
@@ -208,7 +267,7 @@ export function CardDetails() {
                 </div>
                 <div>
                   <p className="text-xs text-muted-foreground mb-1">Available</p>
-                  <p className="text-xl font-black text-green-600">${card.availableCredit?.toFixed(2)}</p>
+                  <p className="text-xl font-black text-green-600">${card.availableCredit.toFixed(2)}</p>
                 </div>
               </div>
 
@@ -232,7 +291,7 @@ export function CardDetails() {
                 </div>
                 <div>
                   <p className="text-xs text-muted-foreground mb-1">Minimum Payment</p>
-                  <p className="font-bold text-foreground">${card.min_payment}</p>
+                  <p className="font-bold text-foreground">${card.min_payment.toFixed(2)}</p>
                 </div>
                 <div>
                   <p className="text-xs text-muted-foreground mb-1">Due Date</p>
@@ -250,7 +309,6 @@ export function CardDetails() {
             </div>
           </div>
 
-          {/* Credit Actions */}
           <div className="grid grid-cols-2 gap-4">
             <button className="flex items-center justify-center gap-2 p-4 bg-orange-500 text-white rounded-xl font-bold hover:bg-orange-600 transition-colors">
               <DollarSign size={18} />
@@ -264,10 +322,9 @@ export function CardDetails() {
         </>
       )}
 
-      {/* Se for CARTÃO DE DÉBITO */}
-      {card.type === 'debit' && (
+      {/* Debit Card Specific Info */}
+      {isDebitCard && (
         <>
-          {/* Debit Information */}
           <div className="bg-card border border-border rounded-xl p-6">
             <h2 className="text-lg font-black text-foreground mb-4 flex items-center gap-2">
               <Wallet size={20} className="text-orange-500" />
@@ -298,7 +355,7 @@ export function CardDetails() {
 
               <div className="bg-blue-50 rounded-xl p-3">
                 <div className="flex flex-wrap gap-2">
-                  {card.features?.map((feature, i) => (
+                  {card.features.map((feature, i) => (
                     <span key={i} className="text-xs bg-white px-2 py-1 rounded-full text-blue-700">
                       ✓ {feature}
                     </span>
@@ -308,7 +365,6 @@ export function CardDetails() {
             </div>
           </div>
 
-          {/* Debit Actions */}
           <div className="grid grid-cols-2 gap-4">
             <button className="flex items-center justify-center gap-2 p-4 bg-orange-500 text-white rounded-xl font-bold hover:bg-orange-600 transition-colors">
               <DollarSign size={18} />
@@ -322,7 +378,7 @@ export function CardDetails() {
         </>
       )}
 
-      {/* Recent Transactions (comum aos dois) */}
+      {/* Recent Transactions */}
       <div className="bg-card border border-border rounded-xl p-6">
         <h2 className="text-lg font-black text-foreground mb-4">Recent Transactions</h2>
         
@@ -338,7 +394,9 @@ export function CardDetails() {
                   </span>
                 </div>
               </div>
-              <p className="font-black text-red-600">${Math.abs(transaction.amount).toFixed(2)}</p>
+              <p className={`font-black ${transaction.amount < 0 ? 'text-red-600' : 'text-green-600'}`}>
+                {transaction.amount < 0 ? '-' : '+'}${Math.abs(transaction.amount).toFixed(2)}
+              </p>
             </div>
           ))}
         </div>
@@ -348,7 +406,7 @@ export function CardDetails() {
         </button>
       </div>
 
-      {/* Danger Zone (comum aos dois) */}
+      {/* Danger Zone */}
       <div className="bg-red-50 border border-red-200 rounded-xl p-6">
         <h2 className="text-lg font-black text-red-800 mb-4 flex items-center gap-2">
           <AlertTriangle size={20} />
@@ -359,7 +417,7 @@ export function CardDetails() {
           <button className="w-full text-left px-4 py-3 bg-white rounded-xl text-red-700 hover:bg-red-100 transition-colors font-bold">
             Report Card Lost/Stolen
           </button>
-          <button className="w-full text-left px-4 py-3 bg-white rounded-xl text-red-700 hover:bg-red-100 transition-colors font-bold">
+          <button className="w-full text-left px-4 py-3 bg-white rounded-xl text-red-700 hover:bg-red-100 transition-corlors font-bold">
             Block Card Temporarily
           </button>
         </div>

@@ -70,7 +70,7 @@ export function Login() {
                 <Wallet size={20} />
               </div>
               <span className="text-xl font-black text-primary tracking-tight">
-                NovaBank
+                NizBank
               </span>
             </motion.div>
           </Link>
@@ -106,7 +106,7 @@ export function Login() {
             Welcome back
           </h2>
           <p className="text-lg text-muted-foreground font-medium">
-            Sign in to your NovaBank account
+            Sign in to your NizBank account
           </p>
         </motion.div>
 

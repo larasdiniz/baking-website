@@ -39,7 +39,7 @@ export function Sidebar({ mobile = false, onClose }: SidebarProps) {
           <div className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center text-white shadow-lg shadow-orange-500/30">
             <Wallet size={20} />
           </div>
-          <span className="text-xl font-black text-foreground">NovaBank</span>
+          <span className="text-xl font-black text-foreground">NizBank</span>
         </div>
       </Link>
 

@@ -84,7 +84,7 @@ export function Register() {
                 <Wallet size={20} />
               </div>
               <span className="text-xl font-black text-primary tracking-tight">
-                NovaBank
+                NizBank
               </span>
             </motion.div>
           </Link>

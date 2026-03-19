@@ -186,7 +186,7 @@ export function Cards() {
                   <div className="flex justify-between items-start mb-6">
                     <div>
                       <p className="text-xs opacity-80">{card.brand === "visa" ? "VISA" : "MASTERCARD"}</p>
-                      <p className="text-lg font-bold mt-1">NovaBank</p>
+                      <p className="text-lg font-bold mt-1">NizBank</p>
                     </div>
                     <div className="flex gap-1">
                       {card.isVirtual && (
@@ -342,7 +342,7 @@ export function Cards() {
 
                 {/* Mini preview do cartão */}
                 <div className={`h-24 rounded-xl bg-gradient-to-br ${card.gradient} mb-4 p-3 ${card.textColor}`}>
-                  <p className="text-xs font-black opacity-90">NovaBank</p>
+                  <p className="text-xs font-black opacity-90">NizBank</p>
                   <p className="text-[10px] font-mono mt-1 opacity-80">**** **** **** 4289</p>
                 </div>
 

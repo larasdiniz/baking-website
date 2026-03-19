@@ -2,6 +2,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import { LanguageProvider } from "./contexts/LanguageContext"; // ← IMPORTE AQUI
 import { MainLayout } from "./layouts/MainLayout";
 import { DashboardLayout } from "./layouts/DashboardLayout";
 import { Home } from "./pages/Home";
@@ -64,7 +65,9 @@ export default function App() {
   return (
     <Router>
       <AuthProvider>
-        <AppRoutes />
+        <LanguageProvider> {/* ← ENVOLVA AQUI */}
+          <AppRoutes />
+        </LanguageProvider>
       </AuthProvider>
     </Router>
   );

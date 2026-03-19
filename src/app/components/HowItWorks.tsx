@@ -1,26 +1,29 @@
 import React from "react";
 import { UserPlus, CreditCard, Smartphone } from "lucide-react";
 import { motion } from "motion/react";
-
-const steps = [
-  {
-    icon: <UserPlus size={36} className="text-orange-500" />,
-    title: "1. Download & Register",
-    description: "Download the app and create your account in under 3 minutes using your ID."
-  },
-  {
-    icon: <CreditCard size={36} className="text-black" />,
-    title: "2. Choose Your Plan",
-    description: "Select the card and plan that perfectly matches your lifestyle and financial needs."
-  },
-  {
-    icon: <Smartphone size={36} className="text-orange-500" />,
-    title: "3. Start Banking",
-    description: "Instantly use your virtual card for online purchases while you wait for the physical one."
-  }
-];
+import { useLanguage } from "../contexts/LanguageContext";
 
 export function HowItWorks() {
+  const { t } = useLanguage();
+
+  const steps = [
+    {
+      icon: <UserPlus size={36} className="text-orange-500" />,
+      title: t('how.step1.title'),
+      description: t('how.step1.desc')
+    },
+    {
+      icon: <CreditCard size={36} className="text-black" />,
+      title: t('how.step2.title'),
+      description: t('how.step2.desc')
+    },
+    {
+      icon: <Smartphone size={36} className="text-orange-500" />,
+      title: t('how.step3.title'),
+      description: t('how.step3.desc')
+    }
+  ];
+
   return (
     <section className="py-32 bg-zinc-50 overflow-hidden">
       <div className="container mx-auto px-6 md:px-12">
@@ -30,8 +33,8 @@ export function HowItWorks() {
           viewport={{ once: true }}
           className="text-center max-w-2xl mx-auto mb-20"
         >
-          <h2 className="text-4xl md:text-5xl font-black text-black mb-6">How it works</h2>
-          <p className="text-xl text-zinc-600 font-medium">Opening a bank account has never been easier. Skip the branches and paperwork.</p>
+          <h2 className="text-4xl md:text-5xl font-black text-black mb-6">{t('how.title')}</h2>
+          <p className="text-xl text-zinc-600 font-medium">{t('how.subtitle')}</p>
         </motion.div>
 
         <div className="flex flex-col md:flex-row justify-center items-start gap-12 max-w-5xl mx-auto relative">

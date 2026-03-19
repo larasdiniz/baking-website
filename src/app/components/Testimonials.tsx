@@ -1,13 +1,14 @@
 import React from "react";
 import { Star } from "lucide-react";
 import { motion } from "motion/react";
+import { useLanguage } from "../contexts/LanguageContext";
 
 const testimonials = [
   {
     name: "Sarah Jenkins",
     role: "Freelance Designer",
     image: "https://images.unsplash.com/photo-1746632452765-05eeadb3c552?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25maWRlbnQlMjB3b21hbiUyMHNtaWxpbmclMjBwb3J0cmFpdHxlbnwxfHx8fDE3NzM3MzQ3OTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-    quote: "NovaBank completely changed how I manage my international clients. The instant transfers and zero hidden fees have saved me hundreds of dollars every month."
+    quote: "NizBank completely changed how I manage my international clients. The instant transfers and zero hidden fees have saved me hundreds of dollars every month."
   },
   {
     name: "Michael Chen",
@@ -19,11 +20,13 @@ const testimonials = [
     name: "Elena Rodriguez",
     role: "Travel Blogger",
     image: "https://images.unsplash.com/photo-1576558656222-ba66febe3dec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzbWlsaW5nJTIwcHJvZmVzc2lvbmFsJTIwaGVhZHNob3QlMjBwb3J0cmFpdHxlbnwxfHx8fDE3NzM3NzQzMjF8MA&ixlib=rb-4.1.0&q=80&w=1080",
-    quote: "I travel full-time and rely entirely on my NovaBank Premium card. The real-time exchange rates and free international ATM withdrawals are a lifesaver."
+    quote: "I travel full-time and rely entirely on my NizBank Premium card. The real-time exchange rates and free international ATM withdrawals are a lifesaver."
   }
 ];
 
 export function Testimonials() {
+  const { t } = useLanguage();
+
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -46,8 +49,8 @@ export function Testimonials() {
           viewport={{ once: true }}
           className="text-center max-w-2xl mx-auto mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-black text-black mb-6">Loved by millions globally</h2>
-          <p className="text-xl text-zinc-600 font-medium">Don't just take our word for it. Here's what our users have to say about their experience with NovaBank.</p>
+          <h2 className="text-4xl md:text-5xl font-black text-black mb-6">{t('testimonials.title')}</h2>
+          <p className="text-xl text-zinc-600 font-medium">{t('testimonials.subtitle')}</p>
         </motion.div>
 
         <motion.div 
@@ -108,17 +111,17 @@ export function Testimonials() {
            >
               <div className="text-center px-4">
                 <div className="text-4xl font-black text-orange-500 mb-1">5M+</div>
-                <div className="text-sm text-zinc-400 font-bold uppercase tracking-wider">Active Users</div>
+                <div className="text-sm text-zinc-400 font-bold uppercase tracking-wider">{t('testimonials.activeUsers')}</div>
               </div>
               <div className="w-px h-16 bg-zinc-800 hidden sm:block"></div>
               <div className="text-center px-4">
                 <div className="text-4xl font-black text-orange-500 mb-1">4.9/5</div>
-                <div className="text-sm text-zinc-400 font-bold uppercase tracking-wider">App Store Rating</div>
+                <div className="text-sm text-zinc-400 font-bold uppercase tracking-wider">{t('testimonials.rating')}</div>
               </div>
               <div className="w-px h-16 bg-zinc-800 hidden sm:block"></div>
               <div className="text-center px-4">
                 <div className="text-4xl font-black text-orange-500 mb-1">$10B+</div>
-                <div className="text-sm text-zinc-400 font-bold uppercase tracking-wider">Processed Monthly</div>
+                <div className="text-sm text-zinc-400 font-bold uppercase tracking-wider">{t('testimonials.processed')}</div>
               </div>
            </motion.div>
         </motion.div>
