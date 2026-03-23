@@ -136,7 +136,7 @@ export function Hero() {
                 playsInline
                 className="w-full h-full object-cover rounded-[2.5rem] shadow-2xl z-10 relative"
               >
-                <source src="/public/Credit_Card_Design_Animation_Request.mp4" type="video/mp4" />
+                <source src="/Credit_Card_Design_Animation_Request.mp4" type="video/mp4" />
                 {/* Fallback caso o vídeo não carregue */}
                 Seu navegador não suporta vídeo HTML5.
               </video>
